@@ -27,5 +27,17 @@ class Module implements ModuleInterface
         $app->register(new TwigServiceProvider(), [
             'twig.path' => $app['twig.path']
         ]);
+
+        $app->setTwig(
+            $app->share(
+                $app->extend('twig', function($twig, $app) {
+                    foreach ($app['twig.extensions'] as $extension) {
+                        $twig->addExtension(new $extension());
+                    }
+
+                    return $twig;
+                })
+            )
+        );
     }
 }
