@@ -2,6 +2,7 @@
 
 namespace LukeZbihlyj\SilexTwig\Twig;
 
+use DateTime;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_SimpleFilter;
@@ -26,6 +27,10 @@ class TwigExtension extends Twig_Extension
     {
         return [
             'asset' => new Twig_SimpleFunction('asset', function($asset) {
+                if (!file_exists($asset)) {
+                    return '/' . ltrim($asset, '/');
+                }
+
                 return '/' . ltrim($asset, '/') . '?' . filemtime($asset);
             }),
         ];
@@ -49,6 +54,33 @@ class TwigExtension extends Twig_Extension
                 }
 
                 return $text;
+            }),
+
+            new Twig_SimpleFilter('ago', function ($time) {
+                $periods = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade'];
+                $lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
+
+                $now = time();
+
+                if ($time instanceof DateTime) {
+                    $time = $time->getTimestamp();
+                } elseif (is_string($time)) {
+                    $time = strtotime($time);
+                }
+
+                $difference = $now - $time;
+
+                for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
+                    $difference /= $lengths[$j];
+                }
+
+                $difference = round($difference);
+
+                if ($difference != 1) {
+                    $periods[$j] .= 's';
+                }
+
+                return $difference . ' ' . $periods[$j] . ' ago';
             }),
         ];
     }
