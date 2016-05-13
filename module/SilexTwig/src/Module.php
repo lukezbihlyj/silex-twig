@@ -32,7 +32,7 @@ class Module implements ModuleInterface
             $app->share(
                 $app->extend('twig', function($twig, $app) {
                     foreach ($app['twig.extensions'] as $extension) {
-                        $twig->addExtension(new $extension());
+                        $twig->addExtension(new $extension($app));
                     }
 
                     return $twig;
