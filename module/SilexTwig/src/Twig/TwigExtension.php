@@ -25,15 +25,7 @@ class TwigExtension extends Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            'asset' => new Twig_SimpleFunction('asset', function($asset) {
-                if (!file_exists($asset)) {
-                    return '/' . ltrim($asset, '/');
-                }
-
-                return '/' . ltrim($asset, '/') . '?' . filemtime($asset);
-            }),
-        ];
+        return [];
     }
 
     /**

@@ -17,4 +17,10 @@ return [
     'twig.extensions' => [
         'LukeZbihlyj\SilexTwig\Twig\TwigExtension',
     ],
+
+    /**
+     * Define a collection of Twig templates with predefined names to make management
+     * easier.
+     */
+    'twig.templates' => [],
 ];
