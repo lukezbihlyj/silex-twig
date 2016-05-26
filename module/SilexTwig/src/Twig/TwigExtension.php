@@ -74,6 +74,21 @@ class TwigExtension extends Twig_Extension
 
                 return $difference . ' ' . $periods[$j] . ' ago';
             }),
+
+            new Twig_SimpleFilter('relative_length', function ($length) {
+                if ($length < 60) {
+                    return $length . ' second' . (($length == 1) ? '' : 's');
+                }
+
+                $length = round($length / 60);
+                if ($length < 60) {
+                    return $length . ' minute' . (($length == 1) ? '' : 's');
+                }
+
+                $length = round($length / 60);
+
+                return $length . ' hour' . (($length == 1) ? '' : 's');
+            })
         ];
     }
 }
