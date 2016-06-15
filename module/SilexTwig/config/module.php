@@ -15,6 +15,8 @@ return [
      * Configure some Twig extensions that should be available to every template.
      */
     'twig.extensions' => [
+        'Twig_Extensions_Extension_I18n',
+
         'LukeZbihlyj\SilexTwig\Twig\TwigExtension',
     ],
 
