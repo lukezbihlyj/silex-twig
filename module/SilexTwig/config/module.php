@@ -19,6 +19,12 @@ return [
     ],
 
     /**
+     * Configure some Twig options to get passed to the constructor for the
+     * Twig_Environment.
+     */
+    'twig.options' => [],
+
+    /**
      * Define a collection of Twig templates with predefined names to make management
      * easier.
      */

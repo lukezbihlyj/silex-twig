@@ -27,7 +27,8 @@ class Module implements ModuleInterface
     {
         $app->register(new TwigServiceProvider(), [
             'twig.path' => $app['twig.path'],
-            'twig.templates' => $app['twig.templates']
+            'twig.templates' => $app['twig.templates'],
+            'twig.options' => $app['twig.options'],
         ]);
 
         $app['twig.loader.array'] = function($app) {
