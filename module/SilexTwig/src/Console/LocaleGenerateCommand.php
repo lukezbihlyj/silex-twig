@@ -46,8 +46,8 @@ class LocaleGenerateCommand extends ConsoleCommand
             $twig->loadTemplate($file);
         }
 
-        $result = exec('find /tmp/twigcache -iname "*.php" | xargs xgettext --default-domain=app -p ' . $app['i18n.locale_path'] . '/base.po --from-code=UTF-8 -n --omit-header -L PHP');
+        $result = exec('find /tmp/twigcache -iname "*.php" | xargs xgettext --default-domain=app -o ' . $app['i18n.locale_path'] . '/app.pot --from-code=UTF-8 -n --omit-header -L PHP');
 
-        $output->writeln('<info>Completed generating locale template. Check your locale directory for the .po file.</info>');
+        $output->writeln('<info>Completed generating locale template. Check your locale directory for the .pot file.</info>');
     }
 }
