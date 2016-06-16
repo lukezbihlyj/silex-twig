@@ -31,4 +31,11 @@ return [
      * easier.
      */
     'twig.templates' => [],
+
+    /**
+     * Define a list of commands that should be added to the console on initialisation.
+     */
+    'console.commands' => [
+        'LukeZbihlyj\SilexTwig\Console\LocaleGenerateCommand',
+    ],
 ];
