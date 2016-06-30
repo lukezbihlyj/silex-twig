@@ -48,7 +48,7 @@ class TwigExtension extends Twig_Extension
                 return $text;
             }),
 
-            new Twig_SimpleFilter('ago', function ($time) {
+            new Twig_SimpleFilter('ago', function($time) {
                 $periods = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade'];
                 $lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
 
@@ -75,7 +75,7 @@ class TwigExtension extends Twig_Extension
                 return $difference . ' ' . $periods[$j] . ' ago';
             }),
 
-            new Twig_SimpleFilter('relative_length', function ($length) {
+            new Twig_SimpleFilter('relative_length', function($length) {
                 if ($length < 60) {
                     return $length . ' second' . (($length == 1) ? '' : 's');
                 }
@@ -88,7 +88,17 @@ class TwigExtension extends Twig_Extension
                 $length = round($length / 60);
 
                 return $length . ' hour' . (($length == 1) ? '' : 's');
-            })
+            }),
+
+            new Twig_SimpleFilter('ordinal', function($value) {
+                $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+
+                if ((($value % 100) >= 11) && (($value % 100) <= 13)) {
+                    return $value . 'th';
+                }
+
+                return $value . $ends[$value % 10];
+            }),
         ];
     }
 }
