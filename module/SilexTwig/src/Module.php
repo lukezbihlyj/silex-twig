@@ -25,6 +25,12 @@ class Module implements ModuleInterface
      */
     public function init(Application $app)
     {
+        $app['twig.options']['debug'] = $app->getDebug();
+
+        if ($app['twig.options']['debug']) {
+            $app['twig.options']['cache'] = false;
+        }
+
         $app->register(new TwigServiceProvider(), [
             'twig.path' => $app['twig.path'],
             'twig.templates' => $app['twig.templates'],
