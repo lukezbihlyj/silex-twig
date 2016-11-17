@@ -25,11 +25,12 @@ class Module implements ModuleInterface
      */
     public function init(Application $app)
     {
-        $app['twig.options']['debug'] = $app->getDebug();
+        $cache = isset($app['twig.options']['cache']) ? $app['twig.options']['cache'] : false;
 
-        if ($app['twig.options']['debug']) {
-            $app['twig.options']['cache'] = false;
-        }
+        $app['twig.options'] = array_merge($app['twig.options'], [
+            'debug' => $app->getDebug(),
+            'cache' => $app->getDebug() ? false : $cache
+        ]);
 
         $app->register(new TwigServiceProvider(), [
             'twig.path' => $app['twig.path'],
